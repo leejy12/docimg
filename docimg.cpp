@@ -15,7 +15,7 @@ int main(int argc, const char* argv[])
     int error;
     zip_t* document = zip_open(argv[1], 0, &error);
 
-    if (document == NULL)
+    if (!document)
     {
         std::cout << "Could not find file: " << argv[1] << '\n';
         return 1;
