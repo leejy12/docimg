@@ -4,7 +4,7 @@
 #include <format>
 #include <zip.h>
 
-int main(int argc, const char *argv[])
+int main(int argc, const char* argv[])
 {
     if (argc < 2)
     {
@@ -13,7 +13,7 @@ int main(int argc, const char *argv[])
     }
 
     int error;
-    zip_t *document = zip_open(argv[1], 0, &error);
+    zip_t* document = zip_open(argv[1], 0, &error);
 
     if (document == NULL)
     {
@@ -40,7 +40,7 @@ int main(int argc, const char *argv[])
             zip_stat_t st;
             zip_stat(document, fileName.c_str(), 0, &st);
 
-            FILE *fp = fopen(imageName.c_str(), "wb");
+            FILE* fp = fopen(imageName.c_str(), "wb");
 
             // read the image file 512 bytes at a time
             const long long rep = st.size / BUFFER_SIZE;
