@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <format>
+#include <string_view>
 #include <zip.h>
 
 int main(int argc, const char* argv[])
@@ -29,18 +30,19 @@ int main(int argc, const char* argv[])
 
     for (int n = 0; n < entries; n++)
     {
-        std::string fileName(zip_get_name(document, n, 0));
+        std::string_view fileName(zip_get_name(document, n, 0));
 
         if (fileName.starts_with("word/media/image"))
         {
             // format of imageName is "image<n>.ext"
-            std::string imageName = fileName.substr(11);
+            // std::string_view imageName = fileName.substr(11);
+            std::string_view imageName(fileName.begin() + 11, fileName.end());
 
-            zip_file_t* file = zip_fopen(document, fileName.c_str(), 0);
+            zip_file_t* file = zip_fopen(document, fileName.data(), 0);
             zip_stat_t st;
-            zip_stat(document, fileName.c_str(), 0, &st);
+            zip_stat(document, fileName.data(), 0, &st);
 
-            FILE* fp = fopen(imageName.c_str(), "wb");
+            FILE* fp = fopen(imageName.data(), "wb");
 
             // read the image file 512 bytes at a time
             const long long rep = st.size / BUFFER_SIZE;
