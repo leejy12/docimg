@@ -27,9 +27,9 @@ int main(int argc, const char* argv[])
 
     const auto entries = zip_get_num_entries(document, 0);
 
-    for (int i = 0; i < entries; i++)
+    for (int n = 0; n < entries; n++)
     {
-        std::string fileName(zip_get_name(document, i, 0));
+        std::string fileName(zip_get_name(document, n, 0));
 
         if (fileName.starts_with("word/media/image"))
         {
